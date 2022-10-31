@@ -1,18 +1,17 @@
-// const express = require('express');
+
 const { json } = require('express');
 const express = require('express');
 const app = express();
 const fs= require('fs');
 require("dotenv").config()
-const bodyparser = require('body-parser');
+
 const stripe = require("stripe")("private key");
 
-// const ejs = require('ejs');
 
 app.set("view engine", "ejs");
 app.use(express.static("public"))
 app.use(express.json())
-// app.use(bodyparser.urlencoded({ extended: true }))
+
 app.get("/store", function(req, res,){
       fs.readFile("items.json", function(err,data){
             if(err) {
@@ -37,7 +36,6 @@ app.post("/payment", async (req, res) => {
                       currency: "usd",
                       product_data: {
                           name: product.name,
-                        //   images: [product.image],
                       },
                       unit_amount: product.amount * 100,
                   },
